@@ -15,6 +15,7 @@ dependencies {
     implementation("com.borjaglez:springify-repository:0.3.3")
     implementation("org.springframework.boot:org.springframework.boot.gradle.plugin:3.0.4")
     implementation("org.springframework.boot:spring-boot-starter-integration:3.0.4")
+    implementation(project(mapOf("path" to ":lab-2:DAO")))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
     annotationProcessor("org.springframework.boot:org.springframework.boot.gradle.plugin:3.0.4")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")

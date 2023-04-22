@@ -1,12 +1,15 @@
 package ru.dvoretckii.Entities;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Component
 @Entity
 @Table(name = "owners", schema = "public")
 public class Owner {
@@ -18,6 +21,18 @@ public class Owner {
     private String name;
     @Column(name = "owner_birth_date")
     private Date owner_birth_date;
+
+    @Override
+    public String toString() {
+        return "Owner{" +
+                "owner_id=" + owner_id +
+                ", name='" + name + '\'' +
+                ", owner_birth_date=" + owner_birth_date +
+                ", ownedCats=" + ownedCats +
+                '}';
+    }
+
+    @Autowired
     @OneToMany(mappedBy="owner")
     private Set<Cat> ownedCats = new HashSet<>();
 

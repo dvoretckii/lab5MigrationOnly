@@ -1,12 +1,14 @@
 package ru.dvoretckii.Entities;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Configuration
 @Entity
 @Table(name = "cats", schema = "public")
 public class Cat {
@@ -16,6 +18,11 @@ public class Cat {
     private Long cat_id;
     @Column(name = "cat_name")
     private String cat_name;
+
+    public Long getCat_id() {
+        return cat_id;
+    }
+
     @Enumerated(EnumType.STRING)
     @Column(name = "cat_color")
     private Color color;
@@ -29,7 +36,7 @@ public class Cat {
             inverseJoinColumns = { @JoinColumn(name = "cat_friend_id") }
     )
     private Set<Cat> friends = new HashSet<>();
-    @ManyToOne (cascade = {CascadeType.ALL})
+    @ManyToOne (cascade = {CascadeType.REFRESH})
     @JoinColumn(name="owner_id", nullable = true)
     private Owner owner;
     @Column(name = "cat_birth_date")
@@ -80,6 +87,19 @@ public class Cat {
 
     public Owner getOwner() {
         return owner;
+    }
+
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "cat_id=" + cat_id +
+                ", cat_name='" + cat_name + '\'' +
+                ", color=" + color +
+                ", cat_breed='" + cat_breed + '\'' +
+                ", friends=" + friends +
+                ", owner=" + owner +
+                ", cat_birth_date=" + cat_birth_date +
+                '}';
     }
 
     public void setOwner(Owner owner) {

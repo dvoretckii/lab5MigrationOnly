@@ -1,18 +1,18 @@
 package ru.dvoretckii.Entities;
 public enum Color {
-    Black,
-    White,
-    Grey,
-    Brown,
-    Red;
+    BLACK,
+    WHITE,
+    GREY,
+    BROWN,
+    RED;
     @Override
     public String toString() {
         return switch (this) {
-            case Black -> "Black";
-            case White -> "White";
-            case Grey -> "Grey";
-            case Brown -> "Brown";
-            case Red -> "Red";
+            case BLACK -> "BLACK";
+            case WHITE -> "WHITE";
+            case GREY -> "GREY";
+            case BROWN -> "BROWN";
+            case RED -> "RED";
             default -> throw new IllegalArgumentException();
         };
     }
