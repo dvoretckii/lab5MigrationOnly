@@ -34,6 +34,7 @@ dependencies {
     testImplementation ("org.springframework.integration:spring-integration-test")
 }
 
+
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
