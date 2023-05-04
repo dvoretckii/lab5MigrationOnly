@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableAutoConfiguration
 @ComponentScan("ru.dvoretckii.*")
 @ComponentScan("ru.dvoretckii")
-@EntityScan("ru.blashchuk.*")
+@EntityScan("ru.dvoretckii.*")
 @EnableJpaRepositories("ru.dvoretckii.Repositories")
 public class Application {
     public static void main(String[] args) {
