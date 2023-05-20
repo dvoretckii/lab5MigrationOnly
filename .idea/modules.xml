@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab-2/Controller/dvoretckii.lab-2.Controller.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lab-2/Controller/dvoretckii.lab-2.Controller.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab-2/DAO/dvoretckii.lab-2.DAO.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lab-2/DAO/dvoretckii.lab-2.DAO.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab-2/Service/dvoretckii.lab-2.Service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lab-2/Service/dvoretckii.lab-2.Service.main.iml" />
     </modules>
   </component>
 </project>

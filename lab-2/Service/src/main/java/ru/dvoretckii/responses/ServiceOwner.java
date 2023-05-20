@@ -19,7 +19,6 @@ public class ServiceOwner {
                 "owner_id=" + owner_id +
                 ", name='" + name + '\'' +
                 ", serviceOwner_birth_date=" + serviceOwner_birth_date +
-                ", ownedCats=" + ownedCats +
                 '}';
     }
 

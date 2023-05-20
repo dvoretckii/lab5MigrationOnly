@@ -2,6 +2,7 @@ package ru.dvoretckii;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.dvoretckii.Repositories.CatRepository;
 import ru.dvoretckii.Repositories.OwnerRepository;
 import ru.dvoretckii.Entities.Cat;
 import ru.dvoretckii.Entities.Owner;
@@ -14,6 +15,8 @@ import java.util.Set;
 public class BusinessOwner {
     @Autowired
     private OwnerRepository ownerRepository;
+    @Autowired
+    private CatRepository catRepository;
     public void createOwner(ServiceOwner serviceOwner) {
         Owner owner = new Owner();
         owner.setName(serviceOwner.getName());
@@ -31,16 +34,25 @@ public class BusinessOwner {
         return serviceOwner;
     }
 
-    public Set<ServiceCat> getOwnedCats(ServiceOwner serviceOwner) {
+    public String getOwnedCats(ServiceOwner serviceOwner) {
         Owner owner = ownerRepository.getById(serviceOwner.getOwner_id());
         Set<ServiceCat> serviceCats = new HashSet<>();
-        BusinessCat businessCat = null;
         for (Cat friend:
                 owner.getOwnedCats()) {
-            ServiceCat serviceCat1 = businessCat.getCatById(friend.getCat_id());
-            serviceCats.add(serviceCat1);
+            Cat cat = catRepository.getById(friend.getCat_id());
+            ServiceCat serviceCat = new ServiceCat();
+            serviceCat.setServiceCat_id(cat.getCat_id());
+            serviceCat.setServiceCat_breed(cat.getCat_breed());
+            serviceCat.setServiceCat_name(cat.getCat_name());
+            serviceCat.setServiceCat_birth_date(cat.getCat_birth_date());
+            serviceCats.add(serviceCat);
         }
-        return serviceCats;
+        String cats = "Cats:\n";
+        for (ServiceCat cat:
+             serviceCats) {
+            cats += cat.getServiceCat_name() + " ";
+        }
+        return cats;
     }
     public void deleteOwnerById(long id) {
         Owner owner = ownerRepository.getById(id);

@@ -19,6 +19,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RequestMapping("/owner")
 public class OwnerController {
     BusinessOwner businessOwner;
+    BusinessCat businessCat;
 
     public OwnerController(BusinessOwner businessOwner) {
         this.businessOwner = businessOwner;
@@ -31,7 +32,7 @@ public class OwnerController {
             return "No such owner";
         }
         ServiceOwner owner = businessOwner.getOwnerById(ownerId);
-        return owner.toString();
+        return owner.toString() + businessOwner.getOwnedCats(owner);
     }
 
     @GetMapping(value = "/create/{name}/{birthDate}", produces = APPLICATION_JSON_VALUE)
@@ -48,6 +49,13 @@ public class OwnerController {
         owner.setOwner_birth_date(d);
         businessOwner.createOwner(owner);
         return "Owner was created. " + owner.toString();
+    }
+
+    @GetMapping(value = "/addCat/{ownerId}/{catId}", produces = APPLICATION_JSON_VALUE)
+    public String create(@PathVariable Long ownerId,@PathVariable Long catId) {
+        ServiceOwner serviceOwner = businessOwner.getOwnerById(ownerId);
+        ServiceCat serviceCat = businessCat.getCatById(catId);
+        return "hui";
     }
 
     @GetMapping(value = "/delete/{ownerId}", produces = APPLICATION_JSON_VALUE)
