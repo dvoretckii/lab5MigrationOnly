@@ -26,6 +26,7 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar" />
         </processorPath>
         <module name="dvoretckii.lab-2.main" />
+        <module name="dvoretckii.lab-4.main" />
       </profile>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
@@ -51,10 +52,13 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.7.2/e27d8ab4f984f9d186f54da984a6ab1cccac755e/antlr4-runtime-4.7.2.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar" />
         </processorPath>
-        <module name="dvoretckii.lab-2.Controller.main" />
-        <module name="dvoretckii.lab-2.DAO.main" />
         <module name="dvoretckii.main" />
+        <module name="ru.dvoretckii.dvoretckii.lab-2.Controller.main" />
         <module name="dvoretckii.lab-2.Service.main" />
+        <module name="dvoretckii.lab-2.DAO.main" />
+        <module name="dvoretckii.lab-4.Service.main" />
+        <module name="dvoretckii.lab-4.Controller.main" />
+        <module name="dvoretckii.lab-4.DAO.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="18" />
