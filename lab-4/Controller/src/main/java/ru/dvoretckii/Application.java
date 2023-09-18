@@ -11,8 +11,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableAutoConfiguration
 @ComponentScan("ru.dvoretckii")
 @EntityScan("ru.dvoretckii")
-@ComponentScan(basePackageClasses = CatController.class)
-@ComponentScan(basePackageClasses = OwnerController.class)
 @ComponentScan(basePackageClasses = RegistrationController.class)
 @ComponentScan(basePackageClasses = LoginController.class)
 @EnableJpaRepositories("ru.dvoretckii.Repositories")

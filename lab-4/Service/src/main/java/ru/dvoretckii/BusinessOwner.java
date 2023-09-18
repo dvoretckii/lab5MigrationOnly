@@ -36,19 +36,8 @@ public class BusinessOwner implements UserDetailsService {
         passwordEncoder = encoder;
     }
 
-
-    public void createOwner(ServiceOwner serviceOwner) {
-        Owner owner = new Owner();
-        owner.setName(serviceOwner.getName());
-        owner.setOwner_birth_date(serviceOwner.getOwner_birth_date());
-        ownerRepository.saveAndFlush(owner);
-        serviceOwner.setOwner_id(owner.getOwner_id());
-    }
-
     public ServiceOwner getOwnerById(long id) {
-        System.out.println("HUI1");
         Owner owner = ownerRepository.getById(id);
-        System.out.println(owner.getOwner_id());
         ServiceOwner serviceOwner = new ServiceOwner();
         serviceOwner.setName(owner.getUsername());
         serviceOwner.setOwner_birth_date(owner.getOwner_birth_date());
@@ -58,17 +47,7 @@ public class BusinessOwner implements UserDetailsService {
         return serviceOwner;
     }
 
-    public ServiceOwner getOwnerByName(String name) {
-        Owner owner = ownerRepository.getByName(name);
-        ServiceOwner serviceOwner = new ServiceOwner();
-        serviceOwner.setName(owner.getUsername());
-        serviceOwner.setOwner_birth_date(owner.getOwner_birth_date());
-        serviceOwner.setOwner_id(owner.getOwner_id());
-        serviceOwner.setPassword(owner.getPassword());
-        serviceOwner.setRoles(owner.getAuthorities());
-        return serviceOwner;
-    }
-    public String getOwnedCats(String name) {
+    public Set<ServiceCat> getOwnedCats(String name) {
         Owner owner = ownerRepository.getByName(name);
         Set<ServiceCat> serviceCats = new HashSet<>();
         for (Cat friend:
@@ -86,7 +65,7 @@ public class BusinessOwner implements UserDetailsService {
              serviceCats) {
             cats += cat.getServiceCat_name() + " ";
         }
-        return cats;
+        return serviceCats;
     }
     public void deleteOwnerById(long id) {
         Owner owner = ownerRepository.getById(id);
@@ -102,17 +81,31 @@ public class BusinessOwner implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Owner owner = ownerRepository.getByName(username);
-        ServiceOwner serviceOwner = new ServiceOwner();
-        serviceOwner.setOwner_id(owner.getOwner_id());
-        serviceOwner.setServiceOwner_birth_date(owner.getOwner_birth_date());
-        serviceOwner.setName(owner.getUsername());
-        serviceOwner.setRoles(owner.getRoles());
-        serviceOwner.setPassword(owner.getPassword());
-        return serviceOwner;
+        try {
+            Owner owner = ownerRepository.getByName(username);
+            ServiceOwner serviceOwner = new ServiceOwner();
+            serviceOwner.setOwner_id(owner.getOwner_id());
+            serviceOwner.setServiceOwner_birth_date(owner.getOwner_birth_date());
+            serviceOwner.setName(owner.getUsername());
+            serviceOwner.setRoles(owner.getRoles());
+            serviceOwner.setPassword(owner.getPassword());
+            return serviceOwner;
+        }catch (Exception ignored){
+        }
+
+        return null;
     }
 
-    public boolean saveUser(ServiceOwner serviceOwner) {
+    public String findByUsername(String username) {
+        if (ownerRepository.getByName(username) == null) {
+            return "No such user. If u want to register try /registration?name=yourusername&password=yourpassword";
+        }
+        else {
+            return "Wrong password. Return to login page : /login" ;
+        }
+    }
+
+    public void saveUser(ServiceOwner serviceOwner) {
         Owner owner = new Owner();
         owner.setName(serviceOwner.getName());
         owner.setOwner_birth_date(serviceOwner.getOwner_birth_date());
@@ -122,6 +115,5 @@ public class BusinessOwner implements UserDetailsService {
         System.out.println(owner.getPassword());
         ownerRepository.saveAndFlush(owner);
         serviceOwner.setOwner_id(owner.getOwner_id());
-        return true;
     }
 }

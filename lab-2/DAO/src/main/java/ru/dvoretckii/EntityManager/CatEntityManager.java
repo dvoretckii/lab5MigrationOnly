@@ -3,7 +3,6 @@ package ru.dvoretckii.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ru.dvoretckii.Entities.Cat;
-import ru.dvoretckii.Sessions.SessionFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

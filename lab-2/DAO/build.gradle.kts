@@ -29,6 +29,9 @@ dependencies {
     annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation ("org.springframework.boot:spring-boot-starter-test")
     testImplementation ("org.springframework.integration:spring-integration-test")
+    implementation ("org.hibernate:hibernate-core:5.0.7.Final")
+    implementation ("org.hibernate:hibernate-entitymanager:5.0.7.Final")
+    implementation ("mysql:mysql-connector-java:5.1.31")
 }
 
 tasks.getByName<Test>("test") {

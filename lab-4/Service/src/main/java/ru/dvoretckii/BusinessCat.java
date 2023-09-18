@@ -77,16 +77,6 @@ public class BusinessCat {
         ownerRepository.saveAndFlush(owner);
         catRepository.saveAndFlush(cat);
     }
-    public void removeCatFriend(ServiceCat serviceCat, ServiceCat serviceFriend) {
-        Cat cat = catRepository.getById(serviceCat.getServiceCat_id());
-        Cat friend = catRepository.getById(serviceFriend.getServiceCat_id());
-        Set<Cat> catsFriends = cat.getFriends();
-        Set<Cat> friendsFriends = friend.getFriends();
-        catsFriends.remove(friend);
-        friendsFriends.remove(cat);
-        catRepository.saveAndFlush(cat);
-        catRepository.saveAndFlush(friend);
-    }
 
     public void addCatFriend(ServiceCat serviceCat, ServiceCat serviceFriend) {
         Cat cat = catRepository.getById(serviceCat.getServiceCat_id());

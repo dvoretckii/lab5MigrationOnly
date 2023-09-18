@@ -41,7 +41,6 @@ public class Cat {
     @Column(name = "cat_birth_date")
     private Date cat_birth_date;
     public Cat() {
-
     }
 
     public String getCat_name() {

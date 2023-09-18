@@ -23,10 +23,10 @@ public class Role implements GrantedAuthority {
     public Role(Long id) {
         this.id = id;
         if (id == 2) {
-            this.name = "USER";
+            this.name = "ROLE_USER";
         }
         else {
-            this.name = "ADMIN";
+            this.name = "ROLE_ADMIN";
         }
     }
 

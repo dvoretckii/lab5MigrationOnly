@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 import ru.dvoretckii.responses.ServiceOwner;
 
 import java.text.ParseException;
@@ -11,34 +12,31 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-@Controller
+@RestController
 public class RegistrationController {
 
     @Autowired
     private BusinessOwner businessOwner;
 
     @GetMapping(value = "/registration")
-    public String registration(@RequestParam(required = false, defaultValue = "1990-12-12") String birthday,
-                                                      @RequestParam String name,
-                                                      @RequestParam String password) {
+    public RedirectView registration(@RequestParam(required = false, defaultValue = "1990-12-12") String birthdate,
+                                     @RequestParam String name,
+                                     @RequestParam String password) {
 
         ServiceOwner owner = new ServiceOwner();
         owner.setName(name);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        Date date;
         try {
-            date = formatter.parse(birthday);
+            Date date = new SimpleDateFormat("dd-MM-yyyy").parse(birthdate);
+            owner.setOwner_birth_date(date);
+            owner.setPassword(password);
+            businessOwner.saveUser(owner);
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("/login");
+            return redirectView;
         } catch (ParseException e) {
-            return "Cannot parse birth date. Try to follow this format: yyyy-MM-dd";
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("/reg/err");
+            return redirectView;
         }
-        owner.setOwner_birth_date(date);
-        owner.setPassword(password);
-        businessOwner.saveUser(owner);
-        return "redirect:/login";
-    }
-
-    @GetMapping(value = "/")
-    public ResponseEntity<String> home() {
-        return ResponseEntity.ok("Всем привет\n<3");
     }
 }
