@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab-2/DAO/dvoretckii.lab-2.DAO.iml" filepath="$PROJECT_DIR$/.idea/modules/lab-2/DAO/dvoretckii.lab-2.DAO.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab-2/DAO/dvoretckii.lab-2.DAO.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lab-2/DAO/dvoretckii.lab-2.DAO.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab-2/Service/dvoretckii.lab-2.Service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lab-2/Service/dvoretckii.lab-2.Service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab-4/Controller/dvoretckii.lab-4.Controller.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lab-4/Controller/dvoretckii.lab-4.Controller.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab-4/DAO/dvoretckii.lab-4.DAO.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lab-4/DAO/dvoretckii.lab-4.DAO.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab-4/Service/dvoretckii.lab-4.Service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lab-4/Service/dvoretckii.lab-4.Service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab-2/Controller/ru.dvoretckii.dvoretckii.lab-2.Controller.main.iml" filepath="$PROJECT_DIR$/.idea/modules/lab-2/Controller/ru.dvoretckii.dvoretckii.lab-2.Controller.main.iml" />
     </modules>
   </component>

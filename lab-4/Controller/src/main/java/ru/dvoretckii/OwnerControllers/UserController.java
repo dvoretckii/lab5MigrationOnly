@@ -35,7 +35,6 @@ public class UserController implements OwnerControllerInterface{
     @ResponseStatus(HttpStatus.MOVED_PERMANENTLY)
     public RedirectView createCat(@PathVariable String name, @PathVariable String breed, @PathVariable String birthDate, @PathVariable String color, @PathVariable long ownerId) {
         ServiceOwner serviceOwner = (ServiceOwner) businessOwner.loadUserByUsername(username);
-
         if (serviceOwner.getOwner_id() != ownerId) {
             message = "Error. U Can't create cat for another person";
             RedirectView redirectView = new RedirectView();

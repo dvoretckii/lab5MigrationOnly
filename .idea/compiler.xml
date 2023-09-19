@@ -26,7 +26,9 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar" />
         </processorPath>
         <module name="dvoretckii.lab-2.main" />
+        <module name="dvoretckii.lab-5.main" />
         <module name="dvoretckii.lab-4.main" />
+        <module name="dvoretckii.lab-5.UIService.main" />
       </profile>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />

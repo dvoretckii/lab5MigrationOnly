@@ -16,6 +16,11 @@
             <option value="$PROJECT_DIR$/lab-4/Controller" />
             <option value="$PROJECT_DIR$/lab-4/DAO" />
             <option value="$PROJECT_DIR$/lab-4/Service" />
+            <option value="$PROJECT_DIR$/lab-5" />
+            <option value="$PROJECT_DIR$/lab-5/CatService" />
+            <option value="$PROJECT_DIR$/lab-5/LinkService" />
+            <option value="$PROJECT_DIR$/lab-5/OwnerService" />
+            <option value="$PROJECT_DIR$/lab-5/UIService" />
             <option value="$PROJECT_DIR$/lab2" />
           </set>
         </option>
