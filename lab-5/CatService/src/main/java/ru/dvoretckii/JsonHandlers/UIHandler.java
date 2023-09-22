@@ -158,7 +158,7 @@ public class UIHandler {
     }
 
     public ObjectNode getOwnedCats(JsonNode node) {
-        Long id  = Long.valueOf(node.get("owner").toString());
+        Long id  = Long.valueOf(node.get("id").toString());
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode parameters = mapper.createObjectNode();
         parameters.put("cats", businessCat.getOwnedCats(id).toString());

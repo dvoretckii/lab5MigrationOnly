@@ -25,6 +25,15 @@ public class LoginController {
         this.authService = businessCat;
     }
 
+    @GetMapping("/logged")
+    public RedirectView login(Authentication authentication) {
+        username = authentication.getName();
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/owner/start");
+        return redirectView;
+    }
+
+
     @GetMapping(value = "/error-info")
     public String loginErrorInfo(){
         return authService.findByUsername(username);

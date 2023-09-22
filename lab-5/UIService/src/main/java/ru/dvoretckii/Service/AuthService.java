@@ -46,10 +46,9 @@ public class AuthService implements UserDetailsService {
             serviceOwner.setRoles(owner.getRoles());
             serviceOwner.setPassword(owner.getPassword());
             return serviceOwner;
-        }catch (Exception ignored){
+        }catch (Exception e){
+            throw new RuntimeException();
         }
-
-        return null;
     }
 
     public String findByUsername(String username) {

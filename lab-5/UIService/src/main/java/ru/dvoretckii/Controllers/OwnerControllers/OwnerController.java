@@ -15,14 +15,14 @@ import ru.dvoretckii.Rabbit.RabbitMQsetup;
 import ru.dvoretckii.Service.AuthService;
 import ru.dvoretckii.Service.ServiceOwner;
 
-//import static ru.dvoretckii.Controllers.AuthControllers.LoginController.username;
+import static ru.dvoretckii.Controllers.AuthControllers.LoginController.username;
 
 @RestController
 @RequestMapping("/owner")
 
 public class OwnerController {
-//    @Autowired
-//    AuthService authService;
+    @Autowired
+    AuthService authService;
     @GetMapping(value = "/get")
     public String getOwnerById(@RequestParam Long id) {
         String queueName = "ui-owner";
@@ -144,48 +144,48 @@ public class OwnerController {
         return "успех";
     }
 
-//    @GetMapping(value = "/start")
-//    public String start() {
-//        String queueName = "ui-cat";
-//        ServiceOwner owner = (ServiceOwner) authService.loadUserByUsername(username);
-//        Long id = owner.getOwner_id();
-//
-//        try {
-//            RabbitClient client = new RabbitClient(queueName);
-//            client.connect("localhost", 5672, "hui", "hui");
-//
-//            ObjectMapper mapper = new ObjectMapper();
-//            ObjectNode parameters = mapper.createObjectNode();
-//            parameters.put("type", "GETOWNEDCATS");
-//            parameters.put("client", "UI");
-//            parameters.put("id", id);
-//            String message = parameters.toString();
-//            client.publishMessage(message);
-//
-//            System.out.println("Message sent! " + message);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//
-//            RabbitMQsetup rabbitMQSetup = new RabbitMQsetup();
-//            Connection connection = rabbitMQSetup.createConnection("localhost", 5672, "hui", "hui");
-//            Channel channel = rabbitMQSetup.createChannel(connection);
-//
-//
-//            String queueNameBack = "cat-ui";
-//
-//
-//            RabbitConsumer rabbitMQConsumer = new RabbitConsumer();
-//            String message = rabbitMQConsumer.startConsuming(channel, queueNameBack);
-//            channel.close();
-//            connection.close();
-//            return "Your cats:\n" + message;
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return "успех";
-//    }
+    @GetMapping(value = "/start")
+    public String start() {
+        String queueName = "ui-cat";
+        ServiceOwner owner = (ServiceOwner) authService.loadUserByUsername(username);
+        Long id = owner.getOwner_id();
+
+        try {
+            RabbitClient client = new RabbitClient(queueName);
+            client.connect("localhost", 5672, "hui", "hui");
+
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode parameters = mapper.createObjectNode();
+            parameters.put("type", "GETOWNEDCATS");
+            parameters.put("client", "UI");
+            parameters.put("id", id);
+            String message = parameters.toString();
+            client.publishMessage(message);
+
+            System.out.println("Message sent! " + message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+
+            RabbitMQsetup rabbitMQSetup = new RabbitMQsetup();
+            Connection connection = rabbitMQSetup.createConnection("localhost", 5672, "hui", "hui");
+            Channel channel = rabbitMQSetup.createChannel(connection);
+
+
+            String queueNameBack = "cat-ui";
+
+
+            RabbitConsumer rabbitMQConsumer = new RabbitConsumer();
+            String message = rabbitMQConsumer.startConsuming(channel, queueNameBack);
+            channel.close();
+            connection.close();
+            return "Your cats:\n" + message;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "успех";
+    }
 }

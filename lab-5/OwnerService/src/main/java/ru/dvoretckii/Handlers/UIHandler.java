@@ -74,7 +74,6 @@ public class UIHandler {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode parameters = mapper.createObjectNode();
         parameters.put("id", serviceOwner.getOwner_id());
-        parameters.put("birth_date", serviceOwner.getOwner_birth_date().toString());
         businessOwner.deleteOwner(id);
         return parameters;
 

@@ -32,10 +32,10 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                 .successHandler((request, response, authentication) -> {
-                    response.sendRedirect("/cat/hello");
+                    response.sendRedirect("/login/logged");
                 })
                 .failureHandler((request, response, exception) -> {
-                    response.sendRedirect("/cat/get?id=1");
+                    response.sendRedirect("/cat/hello");
                 })
                 .permitAll()
                 .and()
