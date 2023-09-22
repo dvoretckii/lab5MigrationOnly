@@ -17,11 +17,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class BusinessOwner implements UserDetailsService {
+public class BusinessOwner {
     @Autowired
     private OwnerRepository ownerRepository;
-    @Autowired
-    private CatRepository catRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -36,12 +34,22 @@ public class BusinessOwner implements UserDetailsService {
     public ServiceOwner getOwnerById(long id) {
         Owner owner = ownerRepository.myGetById(id);
         ServiceOwner serviceOwner = new ServiceOwner();
-        serviceOwner.setName(owner.getUsername());
+       // serviceOwner.setName(owner.getUsername());
         serviceOwner.setOwner_birth_date(owner.getOwner_birth_date());
         serviceOwner.setOwner_id(owner.getOwner_id());
-        serviceOwner.setPassword(owner.getPassword());
-        serviceOwner.setRoles(owner.getAuthorities());
+        //serviceOwner.setPassword(owner.getPassword());
+        //serviceOwner.setRoles(owner.getAuthorities());
         return serviceOwner;
+    }
+
+    public ServiceOwner updateOwner(ServiceOwner serviceOwner) {
+        Owner owner = ownerRepository.myGetById(serviceOwner.getOwner_id());
+        owner.setOwner_birth_date(serviceOwner.getOwner_birth_date());
+        ownerRepository.saveAndFlush(owner);
+        ServiceOwner serviceOwner1 = new ServiceOwner();
+        serviceOwner1.setOwner_id(owner.getOwner_id());
+        serviceOwner1.setOwner_birth_date(serviceOwner.getOwner_birth_date());
+        return serviceOwner1;
     }
 
 //    public Set<ServiceCat> getOwnedCats(String name) {
@@ -64,53 +72,45 @@ public class BusinessOwner implements UserDetailsService {
 //        }
 //        return serviceCats;
 //    }
-    public void deleteOwnerById(long id) {
-        Owner owner = ownerRepository.myGetById(id);
-        Set<Cat> cats = owner.getOwnedCats();
-        BusinessCat businessCat = null;
-        for (Cat cat:
-                cats) {
-            ServiceCat serviceCat = businessCat.getCatById(cat.getCat_id());
-            businessCat.deleteCatFromOwner(serviceCat);
-        }
+    public void deleteOwner(long id) {
         ownerRepository.deleteById(id);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        try {
-            Owner owner = ownerRepository.getByName(username);
-            ServiceOwner serviceOwner = new ServiceOwner();
-            serviceOwner.setOwner_id(owner.getOwner_id());
-            serviceOwner.setServiceOwner_birth_date(owner.getOwner_birth_date());
-            serviceOwner.setName(owner.getUsername());
-            serviceOwner.setRoles(owner.getRoles());
-            serviceOwner.setPassword(owner.getPassword());
-            return serviceOwner;
-        }catch (Exception ignored){
-        }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        try {
+//            Owner owner = ownerRepository.getByName(username);
+//            ServiceOwner serviceOwner = new ServiceOwner();
+//            serviceOwner.setOwner_id(owner.getOwner_id());
+//            serviceOwner.setServiceOwner_birth_date(owner.getOwner_birth_date());
+//            serviceOwner.setName(owner.getUsername());
+//            serviceOwner.setRoles(owner.getRoles());
+//            serviceOwner.setPassword(owner.getPassword());
+//            return serviceOwner;
+//        }catch (Exception ignored){
+//        }
+//
+//        return null;
+//    }
 
-        return null;
-    }
+//    public String findByUsername(String username) {
+//        if (ownerRepository.getByName(username) == null) {
+//            return "No such user. If u want to register try /registration?name=yourusername&password=yourpassword";
+//        }
+//        else {
+//            return "Wrong password. Return to login page : /login" ;
+//        }
+//    }
 
-    public String findByUsername(String username) {
-        if (ownerRepository.getByName(username) == null) {
-            return "No such user. If u want to register try /registration?name=yourusername&password=yourpassword";
-        }
-        else {
-            return "Wrong password. Return to login page : /login" ;
-        }
-    }
-
-    public void saveUser(ServiceOwner serviceOwner) {
-        Owner owner = new Owner();
-        owner.setName(serviceOwner.getName());
-        owner.setOwner_birth_date(serviceOwner.getOwner_birth_date());
-        owner.setRoles(Collections.singleton(new Role(2L)));
-        System.out.println(serviceOwner.getPassword());
-        owner.setPassword(passwordEncoder.encode(serviceOwner.getPassword()));
-        System.out.println(owner.getPassword());
-        ownerRepository.saveAndFlush(owner);
-        serviceOwner.setOwner_id(owner.getOwner_id());
-    }
+//    public void saveUser(ServiceOwner serviceOwner) {
+//        Owner owner = new Owner();
+//        owner.setName(serviceOwner.getName());
+//        owner.setOwner_birth_date(serviceOwner.getOwner_birth_date());
+//        owner.setRoles(Collections.singleton(new Role(2L)));
+//        System.out.println(serviceOwner.getPassword());
+//        owner.setPassword(passwordEncoder.encode(serviceOwner.getPassword()));
+//        System.out.println(owner.getPassword());
+//        ownerRepository.saveAndFlush(owner);
+//        serviceOwner.setOwner_id(owner.getOwner_id());
+//    }
 }

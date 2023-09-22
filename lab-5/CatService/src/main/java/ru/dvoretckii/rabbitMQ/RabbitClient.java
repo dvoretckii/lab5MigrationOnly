@@ -1,7 +1,9 @@
-package ru.dvoretckii.Rabbit;
+package ru.dvoretckii.rabbitMQ;
+
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
@@ -10,7 +12,7 @@ public class RabbitClient {
     private Channel channel;
     private String queueName;
 
-    public RabbitClient(String queueName) {
+    public RabbitClient( String queueName) {
         this.queueName = queueName;
     }
 
@@ -22,7 +24,6 @@ public class RabbitClient {
         factory.setPassword(password);
         this.connection = factory.newConnection();
         this.channel = connection.createChannel();
-
         this.channel.queueDeclare(queueName, true, false, false, null);
     }
 

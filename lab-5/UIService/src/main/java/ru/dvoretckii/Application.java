@@ -1,23 +1,38 @@
 package ru.dvoretckii;
 
-import ru.dvoretckii.Rabbit.RabbitClient;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import ru.dvoretckii.Controllers.AuthControllers.LoginController;
+import ru.dvoretckii.Controllers.AuthControllers.RegistrationController;
+import ru.dvoretckii.Controllers.CatControllers.CatController;
+import ru.dvoretckii.Controllers.OwnerControllers.OwnerController;
 
+//@SpringBootApplication
+////@EnableJpaRepositories("ru.dvoretckii.DAO")
+////@ComponentScan(basePackageClasses = RegistrationController.class)
+////@ComponentScan(basePackageClasses = LoginController.class)
+//public class Application {
+//    public static void main(String[] args) {
+//        SpringApplication.run(Application.class, args);
+//    }
+//}
+
+
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan("ru.dvoretckii")
+@EntityScan("ru.dvoretckii")
+@ComponentScan(basePackageClasses = OwnerController.class)
+@ComponentScan(basePackageClasses = RegistrationController.class)
+@ComponentScan(basePackageClasses = CatController.class)
+@EnableJpaRepositories("ru.dvoretckii.DAO")
 public class Application {
     public static void main(String[] args) {
-        String exchangeName = "my-exchange";
-        String queueName = "hui2";
-
-        try {
-            RabbitClient client = new RabbitClient(exchangeName, queueName);
-            client.connect();
-
-            String message = "Hello, RabbitMQ!";
-            client.publishMessage(message);
-
-            System.out.println("Message sent!");
-            client.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SpringApplication.run(Application.class, args);
     }
 }

@@ -1,28 +1,64 @@
 package ru.dvoretckii.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.dvoretckii.DAO.Entities.Cat;
 import ru.dvoretckii.DAO.Repositories.CatRepository;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Service
+@Component
 public class BusinessCat {
+
+    private final CatRepository catRepository;
     @Autowired
-    private CatRepository catRepository;
+    public BusinessCat(CatRepository catRepository) {
+        this.catRepository = catRepository;
+    }
+
 
     //    @Autowired
 //    private OwnerRepository ownerRepository;
-    public void createCat(ServiceCat serviceCat) {
+    public ServiceCat createCat(ServiceCat serviceCat) {
         Cat cat = new Cat();
         cat.setCat_name(serviceCat.getServiceCat_name());
         cat.setCat_breed(serviceCat.getServiceCat_breed());
         cat.setColor(serviceCat.getColor());
         cat.setCat_birth_date(serviceCat.getServiceCat_birth_date());
+        cat.setOwner(serviceCat.getServiceOwner());
         catRepository.saveAndFlush(cat);
-        serviceCat.setServiceCat_id(cat.getCat_id());
+        ServiceCat serviceCat1 = new ServiceCat();
+        serviceCat1.setServiceCat_id(cat.getCat_id());
+        serviceCat1.setColor(cat.getColor());
+        serviceCat1.setServiceCat_breed(cat.getCat_breed());
+        serviceCat1.setServiceCat_name(cat.getCat_name());
+        serviceCat1.setServiceCat_birth_date(serviceCat.getServiceCat_birth_date());
+        serviceCat1.setServiceOwner(serviceCat.getServiceOwner());
+        return serviceCat1;
+    }
+
+    public ServiceCat updateCat(ServiceCat serviceCat) {
+        Cat cat = catRepository.myGetById(serviceCat.getServiceCat_id());
+        cat.setCat_name(serviceCat.getServiceCat_name());
+        cat.setCat_breed(serviceCat.getServiceCat_breed());
+        cat.setColor(serviceCat.getColor());
+        cat.setCat_birth_date(serviceCat.getServiceCat_birth_date());
+        cat.setOwner(serviceCat.getServiceOwner());
+        catRepository.saveAndFlush(cat);
+        ServiceCat serviceCat1 = new ServiceCat();
+        serviceCat1.setServiceCat_id(cat.getCat_id());
+        serviceCat1.setColor(cat.getColor());
+        serviceCat1.setServiceCat_breed(cat.getCat_breed());
+        serviceCat1.setServiceCat_name(cat.getCat_name());
+        serviceCat1.setServiceCat_birth_date(serviceCat.getServiceCat_birth_date());
+        serviceCat1.setServiceOwner(cat.getOwner());
+        return serviceCat1;
+
     }
 
     public ServiceCat getCatById(long id) {
@@ -47,23 +83,24 @@ public class BusinessCat {
         return friends;
     }
 
-//    public void deleteCatFromOwner(ServiceCat serviceCat) {
-//        if (serviceCat.getServiceOwner() != null) {
-//            Owner owner = ownerRepository.getById(serviceCat.getServiceOwner().getOwner_id());
-//            Set<Cat> cats = owner.getOwnedCats();
-//            for (Cat cat:
-//                    cats) {
-//                if (cat.getCat_id() == serviceCat.getServiceCat_id()) {
-//                    cats.remove(cat);
-//                    owner.setOwnedCats(cats);
-//                    ownerRepository.saveAndFlush(owner);
-//                    cat.setOwner(null);
-//                    catRepository.saveAndFlush(cat);
-//                    return;
-//                }
-//            }
-//        }
-//    }
+    public void deleteCatsFromOwner(Long owner) {
+        List<Cat> ownedCats = catRepository.getOwnedCats(owner);
+        for (Cat cat: ownedCats) {
+            cat.setOwner(null);
+            catRepository.saveAndFlush(cat);
+        }
+    }
+
+    public List<String> getOwnedCats(Long owner) {
+        List<Cat> ownedCats = catRepository.getOwnedCats(owner);
+        List<String> cats = new ArrayList<>();
+        for (Cat cat: ownedCats) {
+            cats.add(cat.getCat_name());
+        }
+        return cats;
+    }
+
+
 //    public void changeCatOwner(ServiceCat serviceCat, ServiceOwner serviceOwner) {
 //        deleteCatFromOwner(serviceCat);
 //        Owner owner = ownerRepository.getById(serviceOwner.getOwner_id());
@@ -87,12 +124,8 @@ public class BusinessCat {
         catRepository.saveAndFlush(friend);
     }
 
-    public void deleteCat(ServiceCat serviceCat) {
-        long id = serviceCat.getServiceCat_id();
+    public void deleteCat(Long id) {
         Cat cat = catRepository.myGetById(id);
-        if (cat.getOwner() != null) {
-            deleteCatFromOwner(serviceCat);
-        }
         Set<Cat> catsFriends = cat.getFriends();
         for (Cat friend :
                 catsFriends) {

@@ -1,8 +1,9 @@
 package ru.dvoretckii.DAO.Entities;
 
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
+
 import java.util.Set;
 
 @Entity

@@ -1,11 +1,11 @@
 package ru.dvoretckii.DAO.Entities;
 
+import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,7 @@ import java.util.Set;
 @Component
 @Entity
 @Table(name = "owners", schema = "public")
-public class Owner implements UserDetails {
+public class Owner implements UserDetails{
     @Id
     @Column(name = "owner_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,7 @@ public class Owner implements UserDetails {
     private String username;
     @Column(name = "owner_birth_date")
     private Date owner_birth_date;
+
     @Column(name = "password")
     private String password;
 
@@ -66,20 +67,18 @@ public class Owner implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
+//
+//    @Override
+//    public String toString() {
+//        return "Owner{" +
+//                "owner_id=" + owner_id +
+//                ", name='" + username + '\'' +
+//                ", owner_birth_date=" + owner_birth_date +
+//                ", ownedCats=" + ownedCats +
+//                '}';
+//    }
 
-    @Override
-    public String toString() {
-        return "Owner{" +
-                "owner_id=" + owner_id +
-                ", name='" + username + '\'' +
-                ", owner_birth_date=" + owner_birth_date +
-                ", ownedCats=" + ownedCats +
-                '}';
-    }
 
-    @Autowired
-    @OneToMany(mappedBy="owner")
-    private Set<Long> ownedCats = new HashSet<>();
 
     public void setName(String name) {
         this.username = name;
@@ -101,13 +100,7 @@ public class Owner implements UserDetails {
         this.roles = roles;
     }
 
-    public Set<Long> getOwnedCats() {
-        return ownedCats;
-    }
 
-    public void setOwnedCats(Set<Long> ownedCats) {
-        this.ownedCats = ownedCats;
-    }
 
     public Owner() {
     }

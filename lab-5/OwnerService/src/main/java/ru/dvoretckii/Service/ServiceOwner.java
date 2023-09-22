@@ -96,13 +96,6 @@ public class ServiceOwner implements UserDetails {
         return true;
     }
 
-    public Date getServiceOwner_birth_date() {
-        return serviceOwner_birth_date;
-    }
-
-    public void setServiceOwner_birth_date(Date serviceOwner_birth_date) {
-        this.serviceOwner_birth_date = serviceOwner_birth_date;
-    }
 
     public void setPassword(String password) {
         this.password = password;

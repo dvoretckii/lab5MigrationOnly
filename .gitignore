@@ -1,4 +1,5 @@
 ### IntelliJ IDEA ###
+**/build
 **/.gradle
 out/
 !**/src/main/**/out/

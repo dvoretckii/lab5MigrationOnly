@@ -1,6 +1,5 @@
 package ru.dvoretckii.Service;
 
-import ru.dvoretckii.DAO.*;
 import ru.dvoretckii.DAO.Entities.Color;
 
 import java.util.Date;

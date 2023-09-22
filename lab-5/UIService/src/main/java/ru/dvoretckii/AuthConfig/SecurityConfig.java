@@ -25,19 +25,17 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests().requestMatchers("/registration").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/login/logged").permitAll()
+                .authorizeHttpRequests().requestMatchers("/cat/hello").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/login/error-info").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                .authorizeHttpRequests().requestMatchers("/cat/get?id=1").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .successHandler((request, response, authentication) -> {
-                    response.sendRedirect("/login/logged");
+                    response.sendRedirect("/cat/hello");
                 })
                 .failureHandler((request, response, exception) -> {
-                    response.sendRedirect("/login/error-info");
+                    response.sendRedirect("/cat/get?id=1");
                 })
                 .permitAll()
                 .and()

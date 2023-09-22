@@ -1,8 +1,8 @@
 package ru.dvoretckii.DAO.Entities;
 
+import jakarta.persistence.*;
 import org.springframework.context.annotation.Configuration;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,9 +35,9 @@ public class Cat {
             inverseJoinColumns = { @JoinColumn(name = "cat_friend_id") }
     )
     private Set<Cat> friends = new HashSet<>();
-    @ManyToOne (cascade = {CascadeType.REFRESH})
-    @JoinColumn(name="owner_id", nullable = true)
-    private Owner owner;
+
+    @Column(name = "owner_id")
+    private Long owner;
     @Column(name = "cat_birth_date")
     private Date cat_birth_date;
     public Cat() {
@@ -83,7 +83,7 @@ public class Cat {
         this.friends = friends;
     }
 
-    public Owner getOwner() {
+    public Long getOwner() {
         return owner;
     }
 
@@ -95,12 +95,12 @@ public class Cat {
                 ", color=" + color +
                 ", cat_breed='" + cat_breed + '\'' +
                 ", friends=" + friends +
-                ", owner=" + owner +
+                ", owner=" +
                 ", cat_birth_date=" + cat_birth_date +
                 '}';
     }
 
-    public void setOwner(Owner owner) {
+    public void setOwner(Long owner) {
         this.owner = owner;
     }
 
